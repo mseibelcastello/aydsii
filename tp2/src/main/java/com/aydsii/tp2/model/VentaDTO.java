@@ -1,17 +1,17 @@
-package com.aydsii.tp2.dto;
+package com.aydsii.tp2.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
 public class VentaDTO {
 
-    @NotBlank
+    @NotBlank(message = "no puede estar vacio")
     private String producto;
 
-    @Positive
+    @Positive (message = "debe ser mayor a 0")
     private int cantidad;
 
-    @Positive
+    @Positive(message = "debe ser mayor a 0")
     private double precioUnitario;
 
     public String getProducto() {

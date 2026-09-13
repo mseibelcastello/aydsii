@@ -1,9 +1,9 @@
 package com.aydsii.tp2.service;
 
-import com.aydsii.tp2.dto.EstadisticasDTO;
-import com.aydsii.tp2.dto.VentaDTO;
-
 import java.util.*;
+
+import com.aydsii.tp2.model.EstadisticasDTO;
+import com.aydsii.tp2.model.VentaDTO;
 
 public class VentaService {
 

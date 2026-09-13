@@ -1,28 +1,43 @@
 package com.aydsii.tp2.controller;
 
-import com.aydsii.tp2.model.*;
-import com.aydsii.tp2.service.*;
-
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.aydsii.tp2.model.EstadisticasDTO;
+import com.aydsii.tp2.model.VentaDTO;
+import com.aydsii.tp2.service.VentaService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 
 @RestController
 @RequestMapping("/api/ventas/estadisticas")
+
+@Tag(name = "Estadisticas", description = "Estadisticas de ventas")
 
 public class VentaController {
 
     private VentaService ventaService = new VentaService();
 
+    @Operation(summary = "Obtener estadisticas", description = "Devuelve las estadisticas de una lista de ventas")
+    @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "La posición del elemento que contiene el error"),
+            @ApiResponse(responseCode = "400", description = "El campo que no es válido")
+    })
+
     @PostMapping
-    public EstadisticasDTO obtenerEstadisticas(@RequestBody @Valid List<VentaDTO> ventas) {
+    public EstadisticasDTO obtenerEstadisticas(
+            @Parameter(description = "Lista de ventas") @RequestBody @NotEmpty(message = "la lista no puede estar vacia") List<@Valid VentaDTO> ventas) {
         return ventaService.obtenerEstadisticas(ventas);
     }
-
-
 
 }

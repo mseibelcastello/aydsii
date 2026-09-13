@@ -1,4 +1,4 @@
-package com.aydsii.tp2.dto;
+package com.aydsii.tp2.model;
 
 public class EstadisticasDTO {
 
