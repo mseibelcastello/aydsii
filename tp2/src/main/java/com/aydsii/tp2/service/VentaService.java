@@ -1,10 +1,15 @@
 package com.aydsii.tp2.service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
 
 import com.aydsii.tp2.model.EstadisticasDTO;
 import com.aydsii.tp2.model.VentaDTO;
 
+@Service
 public class VentaService {
 
     public EstadisticasDTO obtenerEstadisticas(List<VentaDTO> ventas) {
@@ -13,10 +18,14 @@ public class VentaService {
         int cantidadVentas = 0;
         double importeMayor = 0;
         double importeMenor = 0;
-        VentaDTO ventaMayor=null, ventaMenor=null;
+        VentaDTO ventaMayor = null, ventaMenor = null;
 
-        Map<String, Integer> cantidadesPorProduto = new HashMap<>();
-        String productoMasVendido=null;
+        Map<String, Integer> cantidadesPorProducto = new HashMap<>();
+        String productoMasVendido = null;
+
+        if (ventas == null || ventas.isEmpty()) {
+            throw new IllegalArgumentException("La lista de ventas no puede estar vacia");
+        }
 
         for (VentaDTO venta : ventas) {
             importe = venta.getCantidad() * venta.getPrecioUnitario();
@@ -43,13 +52,13 @@ public class VentaService {
             String producto = venta.getProducto();
             int cantidad = venta.getCantidad();
 
-            if (cantidadesPorProduto.containsKey(producto)) {
-                int nuevo = cantidadesPorProduto.get(producto) + cantidad;
-                cantidadesPorProduto.put(producto, nuevo);
+            if (cantidadesPorProducto.containsKey(producto)) {
+                int nuevo = cantidadesPorProducto.get(producto) + cantidad;
+                cantidadesPorProducto.put(producto, nuevo);
 
             } else {
 
-                cantidadesPorProduto.put(producto, cantidad);
+                cantidadesPorProducto.put(producto, cantidad);
 
             }
 
@@ -57,23 +66,22 @@ public class VentaService {
 
         double ticketPromedio = totalFacturado / cantidadVentas;
 
-        int i= 0;
-        int cantidadMasVedida=0;
-        for (Map.Entry<String, Integer> entrada : cantidadesPorProduto.entrySet()){
+        int i = 0;
+        int cantidadMasVendida = 0;
+        for (Map.Entry<String, Integer> entrada : cantidadesPorProducto.entrySet()) {
 
-            if(i==0){
-                productoMasVendido=entrada.getKey();
-                cantidadMasVedida=entrada.getValue();
+            if (i == 0) {
+                productoMasVendido = entrada.getKey();
+                cantidadMasVendida = entrada.getValue();
 
-            }else{
-                if(entrada.getValue()>cantidadMasVedida){
-                    productoMasVendido=entrada.getKey();
-                    cantidadMasVedida=entrada.getValue();
+            } else {
+                if (entrada.getValue() > cantidadMasVendida) {
+                    productoMasVendido = entrada.getKey();
+                    cantidadMasVendida = entrada.getValue();
                 }
             }
             i++;
         }
-
 
         EstadisticasDTO estadisticas = new EstadisticasDTO();
 
@@ -83,7 +91,6 @@ public class VentaService {
         estadisticas.setVentaMayor(ventaMayor);
         estadisticas.setVentaMenor(ventaMenor);
         estadisticas.setProductoMasVendido(productoMasVendido);
-
 
         return estadisticas;
 

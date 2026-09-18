@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aydsii.tp2.model.ApiResult;
 import com.aydsii.tp2.model.EstadisticasDTO;
 import com.aydsii.tp2.model.VentaDTO;
 import com.aydsii.tp2.service.VentaService;
@@ -30,14 +31,15 @@ public class VentaController {
 
     @Operation(summary = "Obtener estadisticas", description = "Devuelve las estadisticas de una lista de ventas")
     @ApiResponses({
-            @ApiResponse(responseCode = "400", description = "La posición del elemento que contiene el error"),
-            @ApiResponse(responseCode = "400", description = "El campo que no es válido")
+            @ApiResponse(responseCode = "200", description = "Estadisticas calucladas"),
+            @ApiResponse(responseCode = "400", description = "Datos invalidos")
     })
 
     @PostMapping
-    public EstadisticasDTO obtenerEstadisticas(
-            @Parameter(description = "Lista de ventas") @RequestBody @NotEmpty(message = "la lista no puede estar vacia") List<@Valid VentaDTO> ventas) {
-        return ventaService.obtenerEstadisticas(ventas);
+    public ApiResult<EstadisticasDTO> obtenerEstadisticas(
+            @Parameter(description = "Lista de ventas") @Valid @RequestBody @NotEmpty(message= "La lista de ventas no puede estar vacia") List<@Valid VentaDTO> ventas) {
+        return ApiResult.ok(ventaService.obtenerEstadisticas(ventas));
     }
+
 
 }
