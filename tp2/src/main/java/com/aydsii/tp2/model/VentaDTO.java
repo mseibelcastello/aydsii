@@ -23,6 +23,7 @@ public class VentaDTO {
     @Positive(message = "El precio unitario debe ser mayor a 0")
     private double precioUnitario;
 
+    private double montoConDescuento;
 
 
 }
