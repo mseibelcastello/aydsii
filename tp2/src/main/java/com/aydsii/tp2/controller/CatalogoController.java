@@ -3,6 +3,8 @@ package com.aydsii.tp2.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,4 +68,21 @@ public class CatalogoController {
     ){
         return ApiResult.ok(catalogoService.ordenar(criterio, ordenamiento));
     }
+
+
+      @Operation(summary = "Modificar stock", description = "Modifica el stock segun la cantidad indicada")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de productos ordenada"),
+            @ApiResponse(responseCode = "400", description = "La modificacion provocó un stock negativo."),
+            @ApiResponse(responseCode = "404", description = "ID no encontrado")
+    })
+    @PutMapping ("/{id}")
+    public ApiResult<ProductoDTO> modificarStock(
+        @Parameter (description = "ID del producto") @PathVariable String id,
+        @Parameter (description = "Cantidad a modificar") @RequestParam int cantidad
+        
+    ){
+        return ApiResult.ok(catalogoService.modificar(id, cantidad));
+    }
+
 }

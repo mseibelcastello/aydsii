@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.aydsii.tp2.model.ProductoDTO;
 
@@ -49,12 +51,37 @@ public class CatalogoService {
             productos.sort(Comparator.comparing(ProductoDTO::getPrecio));
         }
 
-        if(ordenamiento.equals("desc")){
+        if (ordenamiento.equals("desc")) {
             Collections.reverse(productos);
         }
 
         return productos;
+    }
 
+    public ProductoDTO modificar(String id, int cantidad) {
+
+        int nuevoStock = 0;
+        ProductoDTO productoBuscado = null;
+
+        for (ProductoDTO producto : productos) {
+            if (producto.getId().equals(id)) {
+                nuevoStock = producto.getStock() + cantidad;
+                productoBuscado = producto;
+                break;
+            }
+        }
+
+        if (productoBuscado == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Producto no encontrado");
+        }
+
+        if (nuevoStock < 0) {
+            throw new IllegalArgumentException("El stock no puede quedar en negativo");
+        }
+
+        productoBuscado.setStock(nuevoStock);
+
+        return productoBuscado;
     }
 
 }

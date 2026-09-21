@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Schema (description = "Productos en venta")
 public class ProductoDTO {
 
-    @NotBlank (message = "El ID del producto es obligatorio")
+    
     private String id;
 
     @NotBlank (message = "El producto debe tener un nombre")

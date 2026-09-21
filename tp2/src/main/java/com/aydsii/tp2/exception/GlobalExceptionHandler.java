@@ -15,6 +15,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.aydsii.tp2.model.ApiResult;
 
@@ -66,6 +68,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResult<Void>> handleJsonInvalido(HttpMessageNotReadableException ex) {
         return ResponseEntity.badRequest()
                 .body(ApiResult.error(400, "El cuerpo de la peticion no es un JSON valido o falta el body"));
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiResult<Void>> handleResponseStatus(ResponseStatusException ex) {
+        return ResponseEntity.status(ex.getStatusCode())
+                .body(ApiResult.error(ex.getStatusCode().value(), ex.getReason()));
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ApiResult<Void>> handleRecursoNoEncontrado(NoResourceFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResult.error(404, "Recurso no encontrado"));
     }
 
     @ExceptionHandler(Exception.class)
