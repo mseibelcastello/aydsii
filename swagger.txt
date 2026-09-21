@@ -1,0 +1,6 @@
+
+# Primera vez / primera vez despues de cambios
+.\mvnw.cmd spring-boot:run
+
+
+Documents\GitHub\aydsii\tp2
