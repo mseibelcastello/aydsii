@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.aydsii.tp2.model.DescuentoDTO;
 import com.aydsii.tp2.model.EstadisticasDTO;
 import com.aydsii.tp2.model.VentaDTO;
 
@@ -95,4 +96,34 @@ public class VentaService {
         return estadisticas;
 
     }
+
+    public DescuentoDTO obtenerDescuento(List<VentaDTO> ventas, int descuento) {
+
+        double montoConDescuento = 0;
+        DescuentoDTO v = new DescuentoDTO();
+
+        if (ventas == null || ventas.isEmpty()) {
+            throw new IllegalArgumentException("La lista de ventas no puede estar vacia");
+        }
+
+        if (descuento > 100 || descuento < 0) {
+            throw new IllegalArgumentException("Descuento no valido");
+        }
+
+        for (VentaDTO venta : ventas) {
+
+            double importe = venta.getCantidad() * venta.getPrecioUnitario();
+            double importeConDescuento = importe - ((importe * descuento) / 100);
+            venta.setMontoConDescuento(importeConDescuento);
+            montoConDescuento += importeConDescuento;
+
+        }
+
+        v.setVentas(ventas);
+        v.setTotalConDescuento(montoConDescuento);
+
+        return v;
+
+    }
+
 }

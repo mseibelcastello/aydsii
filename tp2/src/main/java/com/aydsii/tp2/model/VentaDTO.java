@@ -7,26 +7,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data 
+@Data
 @NoArgsConstructor
-@AllArgsConstructor 
-@Schema (description= "Venta recibida para procesar") 
+@AllArgsConstructor
+@Schema(description = "Venta recibida para procesar")
 
 public class VentaDTO {
 
     @NotBlank(message = "El producto no puede estar vacio")
     private String producto;
 
-    @Positive (message = "La cantidad debe ser mayor a 0")
+    @Positive(message = "La cantidad debe ser mayor a 0")
     private int cantidad;
 
     @Positive(message = "El precio unitario debe ser mayor a 0")
     private double precioUnitario;
 
-    private double montoConDescuento;
-
+    private Double montoConDescuento;
 
 }
-
-
-
