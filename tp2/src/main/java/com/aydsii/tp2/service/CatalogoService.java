@@ -84,4 +84,12 @@ public class CatalogoService {
         return productoBuscado;
     }
 
+    public void eliminar(String id){
+        boolean eliminado= productos.removeIf(producto -> producto.getId().equals(id));
+
+        if (!eliminado){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Producto no encontrado");
+        }
+    }
+
 }
