@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 import com.aydsii.tp2.model.*;
 import com.aydsii.tp2.service.ClienteService;
@@ -23,8 +24,11 @@ public ClienteController(ClienteService clienteService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResult<Cliente> crear(@RequestBody ClienteDTO cliente){
+    public ApiResult<Cliente> crear(@RequestBody @Valid ClienteDTO cliente){
         return new ApiResult<>(201, "Cliente creado con exito", clienteService.registrar(cliente));
     }
+
+    @PostMapping 
+    public
 
 }
