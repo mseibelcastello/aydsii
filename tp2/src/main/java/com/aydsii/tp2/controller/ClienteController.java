@@ -11,24 +11,25 @@ import jakarta.validation.Valid;
 import com.aydsii.tp2.model.*;
 import com.aydsii.tp2.service.ClienteService;
 
-@RestController 
-@RequestMapping ("/api/clientes")
+@RestController
+@RequestMapping("/api/clientes")
 public class ClienteController {
 
     private final ClienteService clienteService;
 
-public ClienteController(ClienteService clienteService) {
-    this.clienteService = clienteService;
-}
-    
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResult<Cliente> crear(@RequestBody @Valid ClienteDTO cliente){
+    public ApiResult<Cliente> crear(@RequestBody ClienteDTO cliente) {
         return new ApiResult<>(201, "Cliente creado con exito", clienteService.registrar(cliente));
     }
 
-    @PostMapping 
-    public
-
+    @PostMapping("/validado")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApiResult<Cliente> crearValidado(@Valid @RequestBody ClienteDTO cliente) {
+        return new ApiResult<>(201, "Cliente creado con exito", clienteService.registrarValidado(cliente));
+    }
 }

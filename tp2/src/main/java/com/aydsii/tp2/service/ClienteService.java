@@ -23,7 +23,17 @@ public class ClienteService {
         cliente.setTelefono(cli.getTelefono());
 
         return clienteRepository.save(cliente);
-        //.save envia losdatos del cliente cargados en eldto y los manda al jpa, el cual completa la informacion del id y la fecha
+        // .save envia losdatos del cliente cargados en eldto y los manda al jpa, el
+        // cual completa la informacion del id y la fecha
+    }
+
+    public Cliente registrarValidado(ClienteDTO dto) {
+
+        if (clienteRepository.existsByEmail(dto.getEmail())) {
+            throw new IllegalArgumentException("El email ya est registrado");
+        }
+
+        return registrar(dto);
     }
 
 }
