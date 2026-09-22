@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aydsii.tp2.model.ApiResult;
-import com.aydsii.tp2.model.EstadisticasDTO;
 import com.aydsii.tp2.model.*;
 import com.aydsii.tp2.service.VentaService;
 import jakarta.validation.constraints.Min;
@@ -42,6 +40,8 @@ public class VentaController {
                         @Parameter(description = "Lista de ventas") @Valid @RequestBody @NotEmpty(message = "La lista de ventas no puede estar vacia") List<@Valid VentaDTO> ventas) {
                 return ApiResult.ok(ventaService.obtenerEstadisticas(ventas));
         }
+
+        // -------------------------------------------------------------------------
 
         @Operation(summary = "Aplicar descuento", description = "Devuelve el descuento de una lista de ventas")
         @ApiResponses({
