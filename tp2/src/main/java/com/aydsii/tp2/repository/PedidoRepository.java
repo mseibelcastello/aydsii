@@ -11,7 +11,7 @@ public interface PedidoRepository extends JpaRepository<Pedidos, Integer> {
 
     @Query("""
             SELECT DISTINCT p
-            FROM Pedido p
+            FROM Pedidos p
             JOIN p.cliente c
             JOIN p.detalles d
             JOIN d.producto pr
