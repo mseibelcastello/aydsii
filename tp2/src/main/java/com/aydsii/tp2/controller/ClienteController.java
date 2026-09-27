@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 import com.aydsii.tp2.model.*;
+import com.aydsii.tp2.model.tablas.Cliente;
 import com.aydsii.tp2.service.ClienteService;
 
 @RestController

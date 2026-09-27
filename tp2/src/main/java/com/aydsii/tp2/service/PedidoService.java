@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.aydsii.tp2.model.PedidoRespuestaDTO;
+import com.aydsii.tp2.model.tablas.Pedidos;
 import com.aydsii.tp2.repository.PedidoRepository;
 import com.aydsii.tp2.model.*;
 import java.math.BigDecimal;

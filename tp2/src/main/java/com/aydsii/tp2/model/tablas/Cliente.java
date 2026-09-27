@@ -1,4 +1,4 @@
-package com.aydsii.tp2.model;
+package com.aydsii.tp2.model.tablas;
 
 import java.time.LocalDateTime;
 

@@ -1,17 +1,16 @@
 package com.aydsii.tp2.controller;
 
+import com.aydsii.tp2.model.ApiResult;
+import com.aydsii.tp2.model.PedidoRespuestaDTO;
 import com.aydsii.tp2.service.PedidoService;
 
-import com.aydsii.tp2.model.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -25,8 +24,25 @@ public class PedidoController {
 
     @GetMapping("/buscar")
     public ApiResult<List<PedidoRespuestaDTO>> buscar(
-            @RequestParam(required = false) Integer clienteId) {
+            @RequestParam(required = false) Integer clienteId,
+            @RequestParam(required = false) String categoria,
+            @RequestParam(required = false) LocalDate fechaDesde,
+            @RequestParam(required = false) LocalDate fechaHasta,
+            @RequestParam(required = false) String estado
+    ) {
 
-        return null;
+        List<PedidoRespuestaDTO> pedidos = pedidoService.buscar(
+                clienteId,
+                categoria,
+                fechaDesde,
+                fechaHasta,
+                estado
+        );
+
+        return new ApiResult<>(
+                200,
+                "Consulta realizada correctamente",
+                pedidos
+        );
     }
 }

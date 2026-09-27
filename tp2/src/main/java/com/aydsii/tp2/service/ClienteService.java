@@ -1,8 +1,8 @@
 package com.aydsii.tp2.service;
 
 import com.aydsii.tp2.repository.ClienteRepository;
-import com.aydsii.tp2.model.Cliente;
 import com.aydsii.tp2.model.ClienteDTO;
+import com.aydsii.tp2.model.tablas.Cliente;
 
 import org.springframework.stereotype.Service;
 

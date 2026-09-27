@@ -1,7 +1,6 @@
-package com.aydsii.tp2.model;
+package com.aydsii.tp2.model.tablas;
 
-import java.time.LocalDate;
-import java.util.*;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import lombok.Data;
@@ -18,21 +16,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "pedidos")
-public class Pedidos {
+@Table(name = "detalle_pedidos")
+public class DetallePedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    @JoinColumn(name = "pedido_id")
+    private Pedidos pedido;
 
-    private LocalDate fechaPedido;
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Productos producto;
 
-    private String estado;
+    private Integer cantidad;
 
-    @OneToMany(mappedBy = "pedido")
-    private List<DetallePedido> detalles;
+    private BigDecimal precioUnitario;
 }

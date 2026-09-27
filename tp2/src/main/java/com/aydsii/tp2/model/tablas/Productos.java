@@ -1,4 +1,6 @@
-package com.aydsii.tp2.model;
+package com.aydsii.tp2.model.tablas;
+
+import com.aydsii.tp2.*;
 
 import java.math.BigDecimal;
 
@@ -16,22 +18,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "detalle_pedidos")
-public class DetallePedido {
+@Table(name = "productos")
+public class Productos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "pedido_id")
-    private Pedidos pedido;
+    private String nombre;
+
+    private String descripcion;
+
+    private BigDecimal precio;
+
+    private Integer stock;
 
     @ManyToOne
-    @JoinColumn(name = "producto_id")
-    private Productos producto;
-
-    private Integer cantidad;
-
-    private BigDecimal precioUnitario;
+    @JoinColumn(name = "categoria_id")
+    private Categorias categoria;
 }

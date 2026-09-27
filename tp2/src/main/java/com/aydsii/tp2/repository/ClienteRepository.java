@@ -2,7 +2,7 @@ package com.aydsii.tp2.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.aydsii.tp2.model.Cliente;
+import com.aydsii.tp2.model.tablas.Cliente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     boolean existsByEmail(String email);
