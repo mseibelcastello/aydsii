@@ -24,8 +24,16 @@ public class CatalogoService {
             new ProductoDTO("P007", "Webcam HD", "Perifericos", 60.00, 12),
             new ProductoDTO("P008", "Disco SSD 1TB", "Almacenamiento", 120.00, 6)));
 
+    private int siguienteId = 9;
+
     public List<ProductoDTO> listar() {
         return productos;
+    }
+
+    public ProductoDTO agregar(ProductoDTO producto) {
+        producto.setId(String.format("P%03d", siguienteId++));
+        productos.add(producto);
+        return producto;
     }
 
     public List<ProductoDTO> buscar(

@@ -14,7 +14,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("TechStore API")
-                        .description("API REST de gestion de una tienda de tecnologia")
+                        .description("API REST de gestión de una tienda de tecnología")
                         .version("1.0.0"));
     }
 }

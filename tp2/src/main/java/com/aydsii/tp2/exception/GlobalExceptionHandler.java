@@ -1,7 +1,9 @@
 package com.aydsii.tp2.exception;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +28,7 @@ public class GlobalExceptionHandler {
     private static final Pattern POSICION_CAMPO = Pattern.compile("\\[(\\d+)\\]\\.(.+)$");
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResult<List<ErrorValidacion>>> handleValidation(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiResult<Object>> handleValidation(MethodArgumentNotValidException ex) {
         List<ErrorValidacion> errores = new ArrayList<>();
         for (ObjectError error : ex.getBindingResult().getAllErrors()) {
             if (error instanceof FieldError fieldError) {
@@ -42,7 +44,16 @@ public class GlobalExceptionHandler {
                 errores.add(new ErrorValidacion(null, error.getObjectName(), error.getDefaultMessage()));
             }
         }
-        return ResponseEntity.badRequest().body(ApiResult.error(400, "Error de validacion", errores));
+        boolean hayPosicion = errores.stream().anyMatch(e -> e.posicion() != null);
+        if (hayPosicion) {
+            return ResponseEntity.badRequest().body(ApiResult.error(400, "Error de validación", errores));
+        }
+
+        Map<String, String> erroresPorCampo = new LinkedHashMap<>();
+        for (ErrorValidacion error : errores) {
+            erroresPorCampo.merge(error.campo(), error.motivo(), (a, b) -> a + "; " + b);
+        }
+        return ResponseEntity.badRequest().body(ApiResult.error(400, "Error de validación", erroresPorCampo));
     }
 
     @ExceptionHandler(HandlerMethodValidationException.class)
@@ -56,7 +67,7 @@ public class GlobalExceptionHandler {
                 errores.add(new ErrorValidacion(posicion, campo, error.getDefaultMessage()));
             }
         }
-        return ResponseEntity.badRequest().body(ApiResult.error(400, "Error de validacion", errores));
+        return ResponseEntity.badRequest().body(ApiResult.error(400, "Error de validación", errores));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -67,7 +78,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResult<Void>> handleJsonInvalido(HttpMessageNotReadableException ex) {
         return ResponseEntity.badRequest()
-                .body(ApiResult.error(400, "El cuerpo de la peticion no es un JSON valido o falta el body"));
+                .body(ApiResult.error(400, "El cuerpo de la petición no es un JSON válido o falta el body"));
     }
 
     @ExceptionHandler(ResponseStatusException.class)

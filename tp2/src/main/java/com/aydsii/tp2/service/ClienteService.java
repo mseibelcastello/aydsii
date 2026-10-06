@@ -30,7 +30,7 @@ public class ClienteService {
     public Cliente registrarValidado(ClienteDTO dto) {
 
         if (clienteRepository.existsByEmail(dto.getEmail())) {
-            throw new IllegalArgumentException("El email ya est registrado");
+            throw new IllegalArgumentException("El email ya está registrado");
         }
 
         return registrar(dto);

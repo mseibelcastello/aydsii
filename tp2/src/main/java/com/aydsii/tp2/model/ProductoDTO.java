@@ -21,7 +21,7 @@ public class ProductoDTO {
     @NotBlank (message = "El producto debe tener un nombre")
     private String nombre;
 
-    @NotBlank (message = "El producto debe tener una categoria")
+    @NotBlank (message = "El producto debe tener una categoría")
     private String categoria;
 
     @Positive  (message = "El producto debe tener un precio")

@@ -45,3 +45,13 @@ CREATE TABLE IF NOT EXISTS detalle_pedidos (
   FOREIGN KEY (pedido_id)   REFERENCES pedidos(id),
   FOREIGN KEY (producto_id) REFERENCES productos(id)
 );
+
+CREATE TABLE IF NOT EXISTS historial_conversiones (
+  id               INT AUTO_INCREMENT PRIMARY KEY,
+  moneda_origen    VARCHAR(3),
+  moneda_destino   VARCHAR(3),
+  monto            DECIMAL(18,6),
+  monto_convertido DECIMAL(18,6),
+  tasa             DECIMAL(18,6),
+  fecha_consulta   DATETIME
+);

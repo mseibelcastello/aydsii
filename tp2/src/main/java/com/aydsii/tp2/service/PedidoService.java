@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.aydsii.tp2.model.PedidoRespuestaDTO;
+import com.aydsii.tp2.model.ProductoPedidoDTO;
 import com.aydsii.tp2.model.tablas.Pedidos;
 import com.aydsii.tp2.repository.PedidoRepository;
-import com.aydsii.tp2.model.*;
 import java.math.BigDecimal;
 
 @Service
@@ -27,14 +27,8 @@ public class PedidoService {
                         LocalDate fechaHasta,
                         String estado) {
 
-                List<Pedidos> pedidos = pedidoRepository.buscar(
-                                clienteId,
-                                categoria,
-                                fechaDesde,
-                                fechaHasta,
-                                estado);
-
-                return pedidos.stream()
+                return pedidoRepository.buscar(clienteId, categoria, fechaDesde, fechaHasta, estado)
+                                .stream()
                                 .map(this::convertir)
                                 .toList();
         }

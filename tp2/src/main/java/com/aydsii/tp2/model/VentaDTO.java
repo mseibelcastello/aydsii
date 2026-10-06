@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 public class VentaDTO {
 
-    @NotBlank(message = "El producto no puede estar vacio")
+    @NotBlank(message = "El producto no puede estar vacío")
     private String producto;
 
     @Positive(message = "La cantidad debe ser mayor a 0")

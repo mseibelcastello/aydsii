@@ -25,7 +25,7 @@ public class VentaService {
         String productoMasVendido = null;
 
         if (ventas == null || ventas.isEmpty()) {
-            throw new IllegalArgumentException("La lista de ventas no puede estar vacia");
+            throw new IllegalArgumentException("La lista de ventas no puede estar vacía");
         }
 
         for (VentaDTO venta : ventas) {
@@ -103,11 +103,11 @@ public class VentaService {
         DescuentoDTO v = new DescuentoDTO();
 
         if (ventas == null || ventas.isEmpty()) {
-            throw new IllegalArgumentException("La lista de ventas no puede estar vacia");
+            throw new IllegalArgumentException("La lista de ventas no puede estar vacía");
         }
 
         if (descuento > 100 || descuento < 0) {
-            throw new IllegalArgumentException("Descuento no valido");
+            throw new IllegalArgumentException("Descuento no válido");
         }
 
         for (VentaDTO venta : ventas) {

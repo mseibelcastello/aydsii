@@ -24,20 +24,20 @@ import jakarta.validation.constraints.NotEmpty;
 @RestController
 @RequestMapping("/api/ventas")
 
-@Tag(name = "Ventas", description = "Estadisticas y descuentos de ventas")
+@Tag(name = "Ventas", description = "Estadísticas y descuentos de ventas")
 
 public class VentaController {
 
         private VentaService ventaService = new VentaService();
 
-        @Operation(summary = "Obtener estadisticas", description = "Devuelve las estadisticas de una lista de ventas")
+        @Operation(summary = "Obtener estadísticas", description = "Devuelve las estadísticas de una lista de ventas")
         @ApiResponses({
-                        @ApiResponse(responseCode = "200", description = "Estadisticas calucladas"),
-                        @ApiResponse(responseCode = "400", description = "Datos invalidos")
+                        @ApiResponse(responseCode = "200", description = "Estadísticas calculadas"),
+                        @ApiResponse(responseCode = "400", description = "Datos inválidos")
         })
         @PostMapping("/estadisticas")
         public ApiResult<EstadisticasDTO> obtenerEstadisticas(
-                        @Parameter(description = "Lista de ventas") @Valid @RequestBody @NotEmpty(message = "La lista de ventas no puede estar vacia") List<@Valid VentaDTO> ventas) {
+                        @Parameter(description = "Lista de ventas") @Valid @RequestBody @NotEmpty(message = "La lista de ventas no puede estar vacía") List<@Valid VentaDTO> ventas) {
                 return ApiResult.ok(ventaService.obtenerEstadisticas(ventas));
         }
 
@@ -46,12 +46,12 @@ public class VentaController {
         @Operation(summary = "Aplicar descuento", description = "Devuelve el descuento de una lista de ventas")
         @ApiResponses({
                         @ApiResponse(responseCode = "200", description = "Descuento aplicado"),
-                        @ApiResponse(responseCode = "400", description = "Porcentaje invalido")
+                        @ApiResponse(responseCode = "400", description = "Porcentaje inválido")
         })
 
         @PostMapping("/aplicar-descuento")
         public ApiResult<DescuentoDTO> aplicarDescuento(
-                        @Parameter(description = "Lista de ventas") @Valid @RequestBody @NotEmpty(message = "La lista de ventas no puede estar vacia") List<@Valid VentaDTO> ventas,
+                        @Parameter(description = "Lista de ventas") @Valid @RequestBody @NotEmpty(message = "La lista de ventas no puede estar vacía") List<@Valid VentaDTO> ventas,
                         @Parameter(description = "Descuento a aplicar") @RequestParam @Min(0) @Max(100) int descuento) {
 
                 return ApiResult.ok(ventaService.obtenerDescuento(ventas, descuento));

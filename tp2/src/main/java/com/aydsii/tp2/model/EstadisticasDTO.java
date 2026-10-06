@@ -26,7 +26,7 @@ public class EstadisticasDTO {
     @Schema(description = "Venta de menor importe")
     private VentaDTO ventaMenor;
 
-    @Schema(description = "Producto con mas unidades vendidas")
+    @Schema(description = "Producto con más unidades vendidas")
     private String productoMasVendido;
 
 }
